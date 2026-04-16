@@ -38,9 +38,24 @@ function App() {
     );
   };
 
+  //Derived State total no.od tasks
+
+  const totalTasks = tasks.length;
+
+  //no.of completed tasks
+  const completedTasks = tasks.filter(task => task.completed).length;
+
+  //no.of pending tasks
+  const pendingTasks = tasks.filter(task => !task.completed).length;
+
   return (
     <div>
       <h1>Smart task Manager</h1>
+      <div>
+        <p>Total Tasks: {totalTasks}</p>
+        <p>Completed Tasks: {completedTasks}</p>
+        <p>Pending Tasks: {pendingTasks}</p>
+      </div>
       <TaskInput addTask={addTask} />
       <TaskList tasks={tasks} deleteTask={deleteTask} toggleTask={toggleTask} editTask={editTask} />
     </div>
