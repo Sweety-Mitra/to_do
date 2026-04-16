@@ -3,6 +3,7 @@ import TaskInput from './components/TaskInput';
 import TaskList from './components/TaskList';
 import TaskItem from './components/TaskItem'; 
 import { useState } from 'react';
+import { fakeApiCall } from './utils/fakeApi';
 
 function App() {
   // const [tasks, setTasks] = useState([]);
@@ -16,36 +17,76 @@ function App() {
   const tasks = history.present;
 
   //Add Task Function
-  const addTask = (task) => {
+  const addTask = async (task) => {
     const newTask = {
       id: Date.now(),
       text: task,
       completed: false,
     };
+    const prevState= history.present;
     const newTasks = [...tasks, newTask];
     updateHistory(newTasks);
+    try{
+      await fakeApiCall(newTasks);
+    } catch (error) {
+      console.error('Error adding task:', error);
+      setHistory((prev) => ({
+        ...prev,
+        present: prevState,
+      }));
+    }
   }
 
   //Delete Task Function
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    const prevState= history.present;
     const newTasks = tasks.filter(task => task.id !== id);
     updateHistory(newTasks);
+    try{
+      await fakeApiCall(newTasks);
+    } catch (error) {
+      console.error('Error deleting task:', error);
+      setHistory((prev) => ({
+        ...prev,
+        present: prevState,
+      }));
+    }
   }
 
   //toggle Task Completion Function
-  const toggleTask=(id) => {
+  const toggleTask=async (id) => {
+    const prevState= history.present;
     const newTasks = tasks.map((task) =>
       task.id === id ? {...task, completed: !task.completed} : task
     );
     updateHistory(newTasks);
+    try{
+      await fakeApiCall(newTasks);
+    } catch (error) {
+      console.error('Error toggling task:', error);
+      setHistory((prev) => ({
+        ...prev,
+        present: prevState,
+      }));
+    }
   };
 
   //Edit Task Function
-  const editTask = (id, newText) => {
+  const editTask = async (id, newText) => {
+    const prevState= history.present;
     const newTasks = tasks.map((task) =>
       task.id === id ? {...task, text: newText} : task
     );
     updateHistory(newTasks);
+    try{
+      await fakeApiCall(newTasks);
+    } catch (error) {
+      console.error('Error editing task:', error);
+      setHistory((prev) => ({
+        ...prev,
+        present: prevState,
+      }));
+    }   
   };
 
   //Derived State total no.od tasks

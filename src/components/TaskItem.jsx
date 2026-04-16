@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 
 const TaskItem = ({task, deleteTask,toggleTask,editTask}) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -38,5 +39,5 @@ const TaskItem = ({task, deleteTask,toggleTask,editTask}) => {
         </div>
     );
 }
-
-export default TaskItem;
+//prevents unnecessary re-renders
+export default React.memo (TaskItem);
