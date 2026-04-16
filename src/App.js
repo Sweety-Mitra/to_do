@@ -1,10 +1,8 @@
 import './App.css';
 import TaskInput from './components/TaskInput';
 import TaskList from './components/TaskList';
-import TaskItem from './components/TaskItem'; 
 import { useState } from 'react';
 import { fakeApiCall } from './utils/fakeApi';
-import React from 'react';
 import { useMemo } from 'react';
 
 function App() {
