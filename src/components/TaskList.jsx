@@ -1,7 +1,9 @@
-const TaskList = () => {
+const TaskList = ({ tasks }) => {
     return (
         <div>   
-            <p>Task List</p>
+           {tasks.map(task => (
+            <p key={task.id}>{task.text}</p>
+           ))}
         </div>
     );
 }
