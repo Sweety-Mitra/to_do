@@ -14,28 +14,35 @@ function App() {
       text: task,
       completed: false,
     };
-    setTasks([...tasks, newTask]);
+    setTasks((prev) => [...prev, newTask]);
   }
 
   //Delete Task Function
   const deleteTask = (id) => {
-    const updatedTasks = tasks.filter(task => task.id !== id);
-    setTasks(updatedTasks);
+    setTasks((prev) => prev.filter(task => task.id !== id));
   }
 
   //toggle Task Completion Function
   const toggleTask=(id) => {
-    const updatedTasks = tasks.map((task) =>
+    setTasks((prev) => prev.map((task) =>
       task.id === id ? {...task, completed: !task.completed} : task
+    ));
+  };
+
+  //Edit Task Function
+  const editTask = (id, newText) => {
+    setTasks((prevTasks)=>
+      prevTasks.map((task)=>
+        task.id === id ? {...task, text: newText} : task
+      )
     );
-    setTasks(updatedTasks);
   };
 
   return (
     <div>
       <h1>Smart task Manager</h1>
       <TaskInput addTask={addTask} />
-      <TaskList tasks={tasks} deleteTask={deleteTask} toggleTask={toggleTask} />
+      <TaskList tasks={tasks} deleteTask={deleteTask} toggleTask={toggleTask} editTask={editTask} />
     </div>
   );
 }
