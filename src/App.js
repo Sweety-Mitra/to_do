@@ -4,6 +4,8 @@ import TaskList from './components/TaskList';
 import TaskItem from './components/TaskItem'; 
 import { useState } from 'react';
 import { fakeApiCall } from './utils/fakeApi';
+import React from 'react';
+import { useMemo } from 'react';
 
 function App() {
   // const [tasks, setTasks] = useState([]);
@@ -15,6 +17,12 @@ function App() {
   });
 
   const tasks = history.present;
+
+  //Derived State total no.of tasks
+
+  const totalTasks = useMemo(() => tasks.length, [tasks]);
+  const completedTasks = useMemo(() => tasks.filter(task => task.completed).length, [tasks]);
+  const pendingTasks = useMemo(() => tasks.filter(task => !task.completed).length, [tasks]);  
 
   //Add Task Function
   const addTask = async (task) => {
@@ -89,15 +97,15 @@ function App() {
     }   
   };
 
-  //Derived State total no.od tasks
+  // //Derived State total no.of tasks
 
-  const totalTasks = tasks.length;
+  // const totalTasks = tasks.length;
 
-  //no.of completed tasks
-  const completedTasks = tasks.filter(task => task.completed).length;
+  // //no.of completed tasks
+  // const completedTasks = tasks.filter(task => task.completed).length;
 
-  //no.of pending tasks
-  const pendingTasks = tasks.filter(task => !task.completed).length;
+  // //no.of pending tasks
+  // const pendingTasks = tasks.filter(task => !task.completed).length;
 
   //update history
 

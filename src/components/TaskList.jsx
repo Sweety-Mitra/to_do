@@ -1,4 +1,5 @@
 import TaskItem from "./TaskItem";
+import React from "react";
 
 const TaskList = ({ tasks=[], deleteTask,toggleTask,editTask}) => {
     return (
@@ -14,4 +15,5 @@ const TaskList = ({ tasks=[], deleteTask,toggleTask,editTask}) => {
     );
 }
 
-export default TaskList;
+//memorize the list
+export default React.memo (TaskList);
